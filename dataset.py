@@ -14,8 +14,8 @@ class MyDataset(Dataset):
             train_seed=0,
             test_seed=0,
             bag_size=16,
-            blank_ratio_low=0.25,
-            blank_ratio_high=0.75,
+            blank_ratio_low=25,
+            blank_ratio_high=75,
             target_numbers=[0, 1, 2]):
         self.root = root
         self.train = train
@@ -48,7 +48,11 @@ class MyDataset(Dataset):
             num_plus = 0
             num_minus = 0
             if label != 0:
-                num_blank = self.rng.integers(self.bag_size * blank_ratio_low, self.bag_size * blank_ratio_high, endpoint=True)
+                num_blank = self.rng.integers(
+                    self.bag_size * blank_ratio_low // 100,
+                    min(self.bag_size - 2, (self.bag_size * blank_ratio_high + 99) // 100),
+                    endpoint=True
+                )
                 if label == 1:
                     num_plus = self.bag_size - num_blank
                 elif label == 2:
