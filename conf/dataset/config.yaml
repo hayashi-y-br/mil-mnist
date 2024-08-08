@@ -1,0 +1,10 @@
+root: ${hydra:runtime.cwd}/data
+train_size: 800
+test_size: 200
+train_seed: 0
+test_seed: 0
+bag_size: 16
+target_numbers:
+  - 0
+  - 1
+  - 2
